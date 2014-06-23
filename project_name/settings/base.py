@@ -2,12 +2,11 @@
 This is your project's main settings file that can be committed to your
 repo. If you need to override a setting locally, use local.py
 """
-
 import os
 import logging
 
 # Normally you should not import ANYTHING from Django directly
-# into your settings, but ImproperlyConfigured is an exception.
+# into your settings, but ImproperlyConfigured is an "exception."
 from django.core.exceptions import ImproperlyConfigured
 
 
@@ -51,9 +50,7 @@ INSTALLED_APPS = (
 
     # Third-party apps, patches, fixes
     'djcelery',
-    'debug_toolbar',
     'compressor',
-    #'debug_toolbar_user_panel',
 
     # Database migrations
     'south',
@@ -125,7 +122,7 @@ USE_TZ = True
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Los_Angeles'
+TIME_ZONE = 'America/Chicago'
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -143,7 +140,6 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = [
@@ -172,66 +168,10 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
-
-def custom_show_toolbar(request):
-    """ Only show the debug toolbar to users with the superuser flag. """
-    return request.user.is_superuser
-
-
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
-    'HIDE_DJANGO_SQL': True,
-    'TAG': 'body',
-    'SHOW_TEMPLATE_CONTEXT': True,
-    'ENABLE_STACKTRACES': True,
-}
-
-DEBUG_TOOLBAR_PANELS = (
-    #'debug_toolbar_user_panel.panels.UserPanel',
-    'debug_toolbar.panels.version.VersionDebugPanel',
-    'debug_toolbar.panels.timer.TimerDebugPanel',
-    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
-    'debug_toolbar.panels.headers.HeaderDebugPanel',
-    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-    'debug_toolbar.panels.template.TemplateDebugPanel',
-    'debug_toolbar.panels.sql.SQLDebugPanel',
-    'debug_toolbar.panels.signals.SignalDebugPanel',
-    'debug_toolbar.panels.logger.LoggingPanel',
-)
-
-# Specify a custom user model to use
-#AUTH_USER_MODEL = 'accounts.MyUser'
-
 FILE_UPLOAD_PERMISSIONS = 0664
 
 # The WSGI Application to use for runserver
 WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
-
-# Define your database connections
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-        #'OPTIONS': {
-        #    'init_command': 'SET storage_engine=InnoDB',
-        #    'charset' : 'utf8',
-        #    'use_unicode' : True,
-        #},
-        #'TEST_CHARSET': 'utf8',
-        #'TEST_COLLATION': 'utf8_general_ci',
-    },
-    # 'slave': {
-    #     ...
-    # },
-}
-
-# Uncomment this and set to all slave DBs in use on the site.
-# SLAVE_DATABASES = ['slave']
 
 # Recipients of traceback emails and other notifications.
 ADMINS = (
@@ -240,12 +180,12 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Debugging displays nice error messages, but leaks memory. Set this to False
-# on all server instances and True only for development.
+# Debugging displays nice error messages, but leaks memory. Set this
+# to False on all server instances and True only for development.
 DEBUG = TEMPLATE_DEBUG = False
 
-# Is this a development instance? Set this to True on development/master
-# instances and False on stage/prod.
+# Is this a development instance? Set this to True on
+# development/master instances and False on stage/prod.
 DEV = False
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -253,29 +193,27 @@ DEV = False
 ALLOWED_HOSTS = []
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# Hardcoded values can leak through source control.
-# This is an example method of getting the value from an environment setting.
-# Uncomment to use, and then make sure you set the SECRET_KEY environment variable.
-# This is good to use in production, and on services that support it such as Heroku.
+# Hardcoded values can leak through source control.  This is an
+# example method of getting the value from an environment setting.
+# Uncomment to use, and then make sure you set the SECRET_KEY
+# environment variable.  This is good to use in production, and on
+# services that support it such as Heroku.
 #SECRET_KEY = get_env_setting('SECRET_KEY')
 
 # Uncomment these to activate and customize Celery:
-# CELERY_ALWAYS_EAGER = False  # required to activate celeryd
-# BROKER_HOST = 'localhost'
-# BROKER_PORT = 5672
-# BROKER_USER = 'django'
-# BROKER_PASSWORD = 'django'
-# BROKER_VHOST = 'django'
-# CELERY_RESULT_BACKEND = 'amqp'
+CELERY_ALWAYS_EAGER = False  # required to activate celeryd
+BROKER_HOST = 'localhost'
+BROKER_PORT = 5672
+BROKER_USER = 'django'
+BROKER_PASSWORD = 'django'
+BROKER_VHOST = 'django'
+CELERY_RESULT_BACKEND = 'amqp'
 
 INTERNAL_IPS = ('127.0.0.1')
 
 # Enable these options for memcached
-#CACHE_BACKEND= "memcached://127.0.0.1:11211/"
-#CACHE_MIDDLEWARE_ANONYMOUS_ONLY=True
-
-# Set this to true if you use a proxy that sets X-Forwarded-Host
-#USE_X_FORWARDED_HOST = False
+CACHE_BACKEND= "memcached://127.0.0.1:11211/"
+CACHE_MIDDLEWARE_ANONYMOUS_ONLY=True
 
 SERVER_EMAIL = "webmaster@example.com"
 DEFAULT_FROM_EMAIL = "webmaster@example.com"
@@ -296,9 +234,3 @@ LOGGING = {
         }
     }
 }
-
-# Common Event Format logging parameters
-#CEF_PRODUCT = '{{ project_name }}'
-#CEF_VENDOR = 'Your Company'
-#CEF_VERSION = '0'
-#CEF_DEVICE_VERSION = '0'

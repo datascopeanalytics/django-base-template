@@ -1,13 +1,13 @@
-"""
-This is an example settings/local.py file.
-These settings overrides what's in settings/base.py
-"""
+"""This is an example settings/local.py file. These settings
+overrides what's in settings/base.py
 
+"""
 from . import base
 
-
 # To extend any settings from settings/base.py here's an example:
-INSTALLED_APPS = base.INSTALLED_APPS + ('django_nose',)
+INSTALLED_APPS = base.INSTALLED_APPS + (
+    'django_nose',
+)
 
 DATABASES = {
     'default': {
@@ -61,17 +61,6 @@ ALLOWED_HOSTS = []
 # Hardcoded values can leak through source control. Consider loading
 # the secret key from an environment variable or a file instead.
 SECRET_KEY = '{{ secret_key }}'
-
-# Uncomment these to activate and customize Celery:
-# CELERY_ALWAYS_EAGER = False  # required to activate celeryd
-# BROKER_HOST = 'localhost'
-# BROKER_PORT = 5672
-# BROKER_USER = 'django'
-# BROKER_PASSWORD = 'django'
-# BROKER_VHOST = 'django'
-# CELERY_RESULT_BACKEND = 'amqp'
-
-## Log settings
 
 # Remove this configuration variable to use your custom logging configuration
 LOGGING_CONFIG = None
